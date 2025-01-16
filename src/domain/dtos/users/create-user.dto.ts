@@ -1,0 +1,32 @@
+import { regularExp } from "../../../config";
+import { Role } from "../../../data/postgress/models/user.model";
+
+export class CreateUserDTO {
+    constructor(
+        public readonly name: string,
+        public readonly email: string,
+        public readonly password: string,
+        public readonly role: Role
+    ) { }
+
+    static create(object: { [key: string]: any }): [string?, CreateUserDTO?] {
+        const { name, email, password, role } = object;
+        if (!name) {
+            return ["Name is required"];
+        }
+        if (!email) {
+            return ["Email is required"];
+        }
+        if (!password) {
+            return ["Password is required"];
+        }
+        if (!regularExp.password.test(password))
+            return [
+                "The password must be at least 10 characters long and contain at least one uppercase letter, one lowercase letter, and one special character ",
+            ];
+        if (!role) {
+            return ["Missing role"];
+        }
+        return [undefined, new CreateUserDTO(name, email, password, role)];
+    }
+}
