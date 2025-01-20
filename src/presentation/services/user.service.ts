@@ -3,9 +3,15 @@ import { Status, User } from "../../data/postgress/models/user.model";
 import { CustomError } from "../../domain";
 import { CreateUserDTO } from "../../domain/dtos/users/create-user.dto";
 import { UpdateUserDTO } from "../../domain/dtos/users/update-user.dto";
+import { validate as uuidValidate } from 'uuid';
 
 export class UserService {
     async findOne(id: string) {
+        // Validar que el id sea un UUID válido
+        if (!uuidValidate(id)) {
+            throw CustomError.badRequest('Invalid ID format - UUID expected');
+        }
+
         const user = await User.findOne({
             where: {
                 id: id,
@@ -47,9 +53,15 @@ export class UserService {
     }
 
     async update(id: string, data: UpdateUserDTO) {
-        const user = await this.findOne(id)
+        // Validar que el id sea un UUID válido
+        if (!uuidValidate(id)) {
+            throw CustomError.badRequest('Invalid ID format - UUID expected');
+        }
+
+        const user = await this.findOne(id);
         user.name = data.name;
         user.email = data.email;
+
         try {
             await user.save();
             return {
@@ -58,18 +70,21 @@ export class UserService {
         } catch (error) {
             throw CustomError.internalServer("Error to update user")
         }
-
     }
 
     async delete(id: string) {
+        // Validar que el id sea un UUID válido
+        if (!uuidValidate(id)) {
+            throw CustomError.badRequest('Invalid ID format - UUID expected');
+        }
+
         const user = await this.findOne(id);
-        user.status = Status.disabled
+        user.status = Status.disabled;
         try {
             await user.save();
             return { ok: true };
         } catch (error) {
             throw CustomError.internalServer("Error to delete user")
         }
-
     }
 }

@@ -1,6 +1,7 @@
+// src/services/repair.service.ts
 import { Repair, repairStatus } from "../../data/postgress/models/repair.model";
 import { CreateRepairDTO, CustomError } from "../../domain";
-
+import { validate as uuidValidate } from 'uuid';
 
 export class RepairService {
     async findAll() {
@@ -13,23 +14,32 @@ export class RepairService {
         } catch (error) {
             throw CustomError.internalServer("Error fetching repair data")
         }
-    };
+    }
 
     async findOne(id: string) {
+        // Validar que el id sea un UUID válido
+        if (!uuidValidate(id)) {
+            throw CustomError.badRequest('Invalid ID format - UUID expected');
+        }
+
         const repair = await Repair.findOne({
             where: {
-                status: repairStatus.pending,
                 id: id,
+                status: repairStatus.pending,
             },
         })
         if (!repair) {
             throw CustomError.notFound("Repair not found");
         }
         return repair;
-    };
-
+    }
 
     async create(data: CreateRepairDTO) {
+        // Validar que el userId sea un UUID válido
+        if (!uuidValidate(data.userId)) {
+            throw CustomError.badRequest('Invalid user ID format - UUID expected');
+        }
+
         const repair = new Repair()
         repair.date = data.Date;
         repair.userId = data.userId;
@@ -38,11 +48,15 @@ export class RepairService {
         } catch (error) {
             throw CustomError.internalServer("Error creating repair")
         }
-    };
+    }
 
     async update(id: string) {
-        const repair = await this.findOne(id);
+        // Validar que el id sea un UUID válido
+        if (!uuidValidate(id)) {
+            throw CustomError.badRequest('Invalid ID format - UUID expected');
+        }
 
+        const repair = await this.findOne(id);
         repair.status = repairStatus.completed;
         try {
             await repair.save()
@@ -52,11 +66,15 @@ export class RepairService {
         } catch (error) {
             throw CustomError.internalServer("Error updating repair");
         }
-    };
+    }
 
     async delete(id: string) {
-        const repair = await this.findOne(id);
+        // Validar que el id sea un UUID válido
+        if (!uuidValidate(id)) {
+            throw CustomError.badRequest('Invalid ID format - UUID expected');
+        }
 
+        const repair = await this.findOne(id);
         repair.status = repairStatus.canceled;
         try {
             await repair.save()
@@ -66,6 +84,5 @@ export class RepairService {
         } catch (error) {
             throw CustomError.internalServer("Error deleting repair");
         }
-    };
-
+    }
 }
