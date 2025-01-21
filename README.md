@@ -13,8 +13,8 @@
 </div>
 
 # Motorcycle Repair Shop API
-### Nota:
-[ESP 🇲🇽] <a href="https://github.com/AlanDkoXS/Motorcycle-Repair-Shop-API-Project/blob/main/README.es.md">Clic Aquí</a>
+### [ESP 🇲🇽] Nota :
+Puedes ver el README en español, haciendo click<a href="https://github.com/AlanDkoXS/Motorcycle-Repair-Shop-API-Project/blob/main/README.es.md">aquí</a>
 
 ## Overview
 REST API developed to manage a motorcycle repair shop. It allows customers to schedule repair appointments and staff to manage their status.
