@@ -3,7 +3,7 @@ import { JwtAdapter } from '../../config/jwt.adapter';
 import { LoginUserDto } from '../../domain/dtos/auth/login-user.dto';
 import { CustomError } from '../../domain';
 import { User } from '../../data/postgress/models/user.model';
-import { EncryptAdapter } from '../../config/bcrypt.adapter';
+import { encriptAdapter } from '../../config/bcrypt.adapter';
 import { CreateUserDTO } from '../../domain/dtos/users/create-user.dto';
 
 interface SafeUserData {
@@ -73,7 +73,7 @@ export class AuthService {
 
         if (!user) throw CustomError.badRequest('User not found');
 
-        const isMatching = EncryptAdapter.compare(loginUserDto.password, user.password);
+        const isMatching = encriptAdapter.compare(loginUserDto.password, user.password);
         if (!isMatching) throw CustomError.badRequest('Invalid password');
 
         const token = await JwtAdapter.generateToken({
@@ -102,7 +102,7 @@ export class AuthService {
 
         try {
             // Hash password - note that this is synchronous based on the implementation
-            const hashedPassword = EncryptAdapter.hash(validatedData.password);
+            const hashedPassword = encriptAdapter.hash(validatedData.password);
 
             const user = await this.user.create({
                 name: validatedData.name,

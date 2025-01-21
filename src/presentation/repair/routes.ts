@@ -27,7 +27,7 @@ export class RepairRoutes {
         );
 
         router.post('/',
-            AuthMiddleware.checkRole([Role.client]),
+            AuthMiddleware.checkRole([Role.employee]),
             createRepairValidator, // Agregamos la validación aquí
             controller.createRepair
         );
