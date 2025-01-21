@@ -18,12 +18,13 @@ export class Repair extends BaseEntity {
     date: Date;
 
     @Column("varchar", {
-        nullable: false
+        nullable: true
     })
     motorsNumber: string;
 
     @Column("text", {
-        nullable: false
+        nullable: false,
+        default: ""
     })
     description: string;
 

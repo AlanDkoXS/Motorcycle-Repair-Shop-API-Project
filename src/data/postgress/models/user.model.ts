@@ -28,8 +28,6 @@ export class User extends BaseEntity {
     })
     name: string;
 
-
-
     @Column("varchar", {
         length: 80,
         nullable: false

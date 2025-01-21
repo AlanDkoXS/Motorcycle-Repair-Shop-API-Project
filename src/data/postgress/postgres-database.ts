@@ -32,7 +32,7 @@ export class PostgresDatabase {
     async connect() {
         try {
             await this.datasource.initialize();
-            console.log("Database conected 👌");
+            console.log("✔️ Database conected");
         } catch (error) {
             console.log(error);
         }
