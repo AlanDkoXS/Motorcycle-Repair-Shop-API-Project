@@ -46,7 +46,7 @@ export class UserService {
         try {
             return await user.save();
         } catch (error) {
-            throw CustomError.internalServer("Error to create user - Name or email already exists");
+            throw CustomError.internalServer("Error to create user - Email already exists");
         }
     }
 

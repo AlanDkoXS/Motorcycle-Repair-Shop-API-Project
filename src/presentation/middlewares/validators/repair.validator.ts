@@ -6,7 +6,7 @@ export const createRepairValidator = [
         .exists().withMessage('Date is required')
         .isISO8601().toDate().withMessage('Invalid date format'),
 
-    check('motorsNumber')
+    check('motorNumber')
         .exists().withMessage('Motor number is required')
         .isString().withMessage('Motor number must be a string')
         .notEmpty().withMessage('Motor number cannot be empty'),

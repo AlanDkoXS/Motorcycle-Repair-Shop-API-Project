@@ -6,7 +6,7 @@ export const encriptAdapter = {
         return hashSync(password, salt);
     },
 
-    compare: (unHashedPassowrd: string, hashedPassword: string) => {
-        return compareSync(unHashedPassowrd, hashedPassword);
+    compare: (unHashedPassword: string, hashedPassword: string) => {
+        return compareSync(unHashedPassword, hashedPassword);
     },
 };

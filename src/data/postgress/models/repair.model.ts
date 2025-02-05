@@ -19,7 +19,7 @@ export class Repair extends BaseEntity {
     @Column("varchar", {
         nullable: false
     })
-    motorsNumber: string;
+    motorNumber: string;
 
     @Column("text", {
         nullable: false,

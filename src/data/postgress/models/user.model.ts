@@ -25,14 +25,13 @@ export class User extends BaseEntity {
     @Column("varchar", {
         length: 80,
         nullable: false,
-        unique: true, // Garantiza que el nombre sea único
     })
     name: string;
 
     @Column("varchar", {
         length: 80,
         nullable: false,
-        unique: true, // Los correos deben ser únicos
+        unique: true,
     })
     email: string;
 
@@ -44,13 +43,13 @@ export class User extends BaseEntity {
 
     @Column("enum", {
         enum: Role,
-        default: Role.client, // Valor predeterminado
+        default: Role.client,
     })
     role: Role;
 
     @Column("enum", {
         enum: Status,
-        default: Status.available, // Valor predeterminado
+        default: Status.available,
     })
     status: Status;
 

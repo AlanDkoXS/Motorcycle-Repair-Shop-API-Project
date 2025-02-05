@@ -56,7 +56,7 @@ src/
 {
   id: string (UUID)
   date: Date
-  motorsNumber: string
+  motorNumber: string
   description: string
   status: enum ['pending', 'completed', 'canceled']
   userId: string (UUID)
@@ -108,7 +108,7 @@ src/
 
 - **POST /api/v1/repairs**
   - Crear nueva reparación
-  - Body: `{ date, motorsNumber, description, userId }`
+  - Body: `{ date, motorNumber, description, userId }`
   - Requiere: Token de autenticación (role: client)
   - Validaciones:
     - Fecha: Formato ISO 8601
