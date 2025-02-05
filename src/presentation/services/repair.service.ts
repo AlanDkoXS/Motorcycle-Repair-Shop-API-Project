@@ -1,4 +1,3 @@
-// src/services/repair.service.ts
 import { Repair, repairStatus } from "../../data/postgress/models/repair.model";
 import { CreateRepairDTO, CustomError } from "../../domain";
 import { validate as uuidValidate } from 'uuid';
@@ -17,7 +16,6 @@ export class RepairService {
     }
 
     async findOne(id: string) {
-        // Validar que el id sea un UUID válido
         if (!uuidValidate(id)) {
             throw CustomError.badRequest('Invalid ID format - UUID expected');
         }
@@ -35,13 +33,12 @@ export class RepairService {
     }
 
     async create(data: CreateRepairDTO) {
-        // Validar que el userId sea un UUID válido
         if (!uuidValidate(data.userId)) {
             throw CustomError.badRequest('Invalid user ID format - UUID expected');
         }
 
         const repair = new Repair()
-        repair.date = data.Date;
+        repair.date = data.date;
         repair.userId = data.userId;
         try {
             return await repair.save();
@@ -51,7 +48,6 @@ export class RepairService {
     }
 
     async update(id: string) {
-        // Validar que el id sea un UUID válido
         if (!uuidValidate(id)) {
             throw CustomError.badRequest('Invalid ID format - UUID expected');
         }
@@ -69,7 +65,6 @@ export class RepairService {
     }
 
     async delete(id: string) {
-        // Validar que el id sea un UUID válido
         if (!uuidValidate(id)) {
             throw CustomError.badRequest('Invalid ID format - UUID expected');
         }

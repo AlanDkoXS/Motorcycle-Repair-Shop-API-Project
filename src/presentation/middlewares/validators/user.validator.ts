@@ -1,4 +1,3 @@
-// middlewares/validators/user.validator.ts
 import { check } from 'express-validator';
 import { validateResult } from '../validate.middleware';
 

@@ -1,4 +1,3 @@
-// src/data/postgress/models/repair.model.ts
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 export enum repairStatus {
@@ -18,13 +17,12 @@ export class Repair extends BaseEntity {
     date: Date;
 
     @Column("varchar", {
-        nullable: true
+        nullable: false
     })
     motorsNumber: string;
 
     @Column("text", {
         nullable: false,
-        default: ""
     })
     description: string;
 

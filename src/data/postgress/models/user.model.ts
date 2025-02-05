@@ -5,7 +5,7 @@ import {
     Entity,
     PrimaryGeneratedColumn
 } from "typeorm";
-import { encriptAdapter } from "../../../config/bcrypt.adapter";
+import { encriptAdapter } from "../../../config/encrypt.adapter";
 
 export enum Role {
     employee = "employee",

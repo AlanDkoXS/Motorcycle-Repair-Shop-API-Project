@@ -1,4 +1,3 @@
-import { isErrored } from "stream";
 import { Status, User } from "../../data/postgress/models/user.model";
 import { CustomError } from "../../domain";
 import { CreateUserDTO } from "../../domain/dtos/users/create-user.dto";
@@ -7,7 +6,6 @@ import { validate as uuidValidate } from 'uuid';
 
 export class UserService {
     async findOne(id: string) {
-        // Validar que el id sea un UUID válido
         if (!uuidValidate(id)) {
             throw CustomError.badRequest('Invalid ID format - UUID expected');
         }
@@ -48,12 +46,11 @@ export class UserService {
         try {
             return await user.save();
         } catch (error) {
-            throw CustomError.internalServer("Error to create user");
+            throw CustomError.internalServer("Error to create user - Name or email already exists");
         }
     }
 
     async update(id: string, data: UpdateUserDTO) {
-        // Validar que el id sea un UUID válido
         if (!uuidValidate(id)) {
             throw CustomError.badRequest('Invalid ID format - UUID expected');
         }
@@ -73,7 +70,6 @@ export class UserService {
     }
 
     async delete(id: string) {
-        // Validar que el id sea un UUID válido
         if (!uuidValidate(id)) {
             throw CustomError.badRequest('Invalid ID format - UUID expected');
         }

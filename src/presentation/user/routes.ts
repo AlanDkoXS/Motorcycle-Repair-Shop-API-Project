@@ -1,20 +1,18 @@
-// routes/user/routes.ts
 import { Router } from "express";
 import { UserController } from "./controller";
 import { UserService } from "../services/user.service";
-import { createUserValidator } from '../middlewares/validators/user.validator';
 
 export class UserRoutes {
     static get routes(): Router {
         const router = Router();
         const userService = new UserService();
-        const controller = new UserController(userService);
+        const userCcontroller = new UserController(userService);
 
-        router.get("/", controller.findAllUsers)
-        router.get("/:id", controller.findOneUser)
-        router.post("/", createUserValidator, controller.createUser)
-        router.patch("/:id", controller.updateUser)
-        router.delete("/:id", controller.deleteUser)
+        router.get("/", userCcontroller.findAllUsers)
+        router.get("/:id", userCcontroller.findOneUser)
+        router.post("/", userCcontroller.createUser)
+        router.patch("/:id", userCcontroller.updateUser)
+        router.delete("/:id", userCcontroller.deleteUser)
 
         return router;
     }

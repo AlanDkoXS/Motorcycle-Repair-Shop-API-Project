@@ -3,7 +3,7 @@ import { JwtAdapter } from '../../config/jwt.adapter';
 import { LoginUserDto } from '../../domain/dtos/auth/login-user.dto';
 import { CustomError } from '../../domain';
 import { User } from '../../data/postgress/models/user.model';
-import { encriptAdapter } from '../../config/bcrypt.adapter';
+import { encriptAdapter } from '../../config/encrypt.adapter';
 import { CreateUserDTO } from '../../domain/dtos/users/create-user.dto';
 
 interface SafeUserData {

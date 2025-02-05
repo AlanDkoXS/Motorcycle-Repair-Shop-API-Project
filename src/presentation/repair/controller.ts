@@ -4,7 +4,8 @@ import { RepairService } from "../services/repair.service";
 
 
 export class RepairController {
-    constructor(private readonly repairService: RepairService) { }
+    constructor(
+        private readonly repairService: RepairService) { }
 
     private handleError = (error: unknown, res: Response) => {
         if (error instanceof CustomError) {
@@ -25,7 +26,8 @@ export class RepairController {
     findOneRepair = (req: Request, res: Response) => {
         const { id } = req.params;
 
-        this.repairService.findOne(id)
+        this.repairService
+            .findOne(id)
             .then((data) => res.status(200).json(data))
             .catch((error: any) => this.handleError(error, res));
     };
@@ -51,10 +53,9 @@ export class RepairController {
     };
     delete = (req: Request, res: Response) => {
         const { id } = req.params;
-
         this.repairService
             .delete(id)
-            .then((data) => res.status(204).json(data))
+            .then(() => res.status(204).json(null))
             .catch((error: any) => this.handleError(error, res));
     };
 };
