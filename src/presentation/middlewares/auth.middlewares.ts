@@ -41,7 +41,7 @@ export class AuthMiddleware {
     static restricTo = (...roles: Role[]) => {
         return (req: Request, res: Response, next: NextFunction) => {
             if (!roles.includes(req.body.sessionUser.role)) {
-                return res.status(401).json({ message: "You do not have permission to perform this action" });
+                return res.status(403).json({ message: "You do not have permission to perform this action" });
             }
             next();
         }

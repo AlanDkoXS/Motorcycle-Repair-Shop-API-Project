@@ -15,7 +15,8 @@
 # API Taller de Motocicletas
 
 ## Descripción General
-API REST desarrollada para gestionar un taller de reparación de motocicletas. Permite a los clientes agendar citas para reparaciones y al personal gestionar el estado de las mismas.
+API REST desarrollada para gestionar un taller de reparación de motocicletas. Permite a los clientes agendar citas para reparaciones y al personal gestionar el estado de las mismas. Puedes verificar la documentación de la API en Postman<a href="https://documenter.getpostman.com/view/39046613/2sAYX8K2NH">aquí</a>
+
 
 ## Tecnologías Utilizadas
 - Node.js
