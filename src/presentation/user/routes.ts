@@ -13,6 +13,7 @@ export class UserRoutes {
         router.post("/", userCcontroller.createUser)
         router.patch("/:id", userCcontroller.updateUser)
         router.delete("/:id", userCcontroller.deleteUser)
+        router.post("/login", userCcontroller.loginUser)
 
         return router;
     }

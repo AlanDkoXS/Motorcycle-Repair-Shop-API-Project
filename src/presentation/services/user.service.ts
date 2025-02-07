@@ -1,3 +1,5 @@
+import { encryptAdapter } from "../../config/encrypt.adapter";
+import { JwtAdapter } from "../../config/jwt.adapter";
 import { Status, User } from "../../data/postgress/models/user.model";
 import { CustomError } from "../../domain";
 import { CreateUserDTO } from "../../domain/dtos/users/create-user.dto";
@@ -81,6 +83,38 @@ export class UserService {
             return { ok: true };
         } catch (error) {
             throw CustomError.internalServer("Error to delete user")
-        }
+        };
+    }
+
+    async login(email: string, password: string) {
+        const user = await this.findUserbyEmail(email);
+
+        const isMatching = await encryptAdapter.compare(password, user.password);
+        if (!isMatching) throw CustomError.badRequest("Invalid password");
+
+        const token = await JwtAdapter.generateToken({ id: user.id });
+        if (!token) throw CustomError.internalServer("Error to generate token");
+
+        return {
+            token,
+            user:
+            {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            },
+        };
+    }
+
+    async findUserbyEmail(email: string) {
+        const user = await User.findOne({
+            where: {
+                email,
+                status: Status.available
+            }
+        });
+        if (!user) throw CustomError.notFound("User not found");
+        return user;
     }
 }

@@ -3,7 +3,7 @@ import z from 'zod';
 const CreateRepairSchema = z.object({
     date: z.string({ message: 'Date is required' }).date(),
     motorNumber: z.string().min(5 , { message: 'Motor number is required' }),
-    description: z.string().min(10, { message: 'Description is required' }),
+    description: z.string().min(10, { message: 'Description is short or required' }),
     userId: z.string().uuid({ message: 'User id is required' }),
 });
 

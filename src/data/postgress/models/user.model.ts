@@ -5,7 +5,7 @@ import {
     Entity,
     PrimaryGeneratedColumn
 } from "typeorm";
-import { encriptAdapter } from "../../../config/encrypt.adapter";
+import { encryptAdapter } from "../../../config/encrypt.adapter";
 
 export enum Role {
     employee = "employee",
@@ -55,6 +55,6 @@ export class User extends BaseEntity {
 
     @BeforeInsert()
     encriptedPassword() {
-        this.password = encriptAdapter.hash(this.password);
+        this.password = encryptAdapter.hash(this.password);
     }
 }

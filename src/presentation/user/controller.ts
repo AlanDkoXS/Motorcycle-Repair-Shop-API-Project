@@ -46,7 +46,7 @@ export class UserController {
         const [error, UpdateUserDto] = UpdateUserDTO.create(req.body);
 
         if (error) return res.status(422).json({ message: error });
-        
+
         this.userService
             .update(id, UpdateUserDto!)
             .then((data) => res.status(200).json(data))
@@ -60,4 +60,12 @@ export class UserController {
             .catch((error: any) => this.handleError(error, res));
 
     };
+
+    loginUser = (req: Request, res: Response) => {
+        const { email, password } = req.body;
+        this.userService
+            .login(email, password)
+            .then((data) => res.status(200).json(data))
+            .catch((error: any) => this.handleError(error, res));
+    }
 }
