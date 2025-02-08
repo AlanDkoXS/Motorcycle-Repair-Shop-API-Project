@@ -3,9 +3,11 @@ import {
     BeforeInsert,
     Column,
     Entity,
+    OneToMany,
     PrimaryGeneratedColumn
 } from "typeorm";
 import { encryptAdapter } from "../../../config/encrypt.adapter";
+import { Repair } from "./repair.model";
 
 export enum Role {
     employee = "employee",
@@ -52,6 +54,9 @@ export class User extends BaseEntity {
         default: Status.available,
     })
     status: Status;
+
+    @OneToMany(() => Repair, (repair) => repair.user)
+        repairs: Repair[];
 
     @BeforeInsert()
     encriptedPassword() {

@@ -1,5 +1,6 @@
 import { Repair, repairStatus } from "../../data/postgress/models/repair.model";
 import { CreateRepairDTO, CustomError } from "../../domain";
+import { In } from "typeorm";
 import { validate as uuidValidate } from 'uuid';
 
 export class RepairService {
@@ -7,8 +8,19 @@ export class RepairService {
         try {
             return await Repair.find({
                 where: {
-                    status: repairStatus.pending
+                    status: In([repairStatus.pending, repairStatus.completed]),
                 },
+                relations: {
+                    user: true,
+                },
+                select: {
+                    user: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        role: true,
+                    },
+                }
             });
         } catch (error) {
             throw CustomError.internalServer("Error fetching repair data")
